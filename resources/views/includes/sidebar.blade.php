@@ -56,6 +56,12 @@
 							</a>
 						</li>
 						<li class="nav-item">
+							<a href="/artikel">
+								<i class="fas fa-desktop"></i>
+								<p>Artikel</p>
+							</a>
+						</li>
+						<li class="nav-item">
 							<a data-toggle="collapse" href="#base">
 								<i class="fas fa-layer-group"></i>
 								<p>Base</p>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\KategoriController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,3 +30,11 @@ Route::post('/kategori', [KategoriController::class, 'store'])->name('kategori.s
 Route::get('/kategori/edit/{id}', [KategoriController::class, 'edit'])->name('kategori.edit');
 Route::put('/kategori/update/{id}', [KategoriController::class, 'update'])->name('kategori.update');
 Route::get('/kategori/destroy/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
+
+//Artikel
+Route::get('/artikel', [ArtikelController::class, 'index']);
+Route::get('/artikel/create', [ArtikelController::class, 'create'])->name('artikel.create');
+Route::post('/artikel', [ArtikelController::class, 'store'])->name('artikel.store');
+Route::get('/artikel/edit/{id}', [ArtikelController::class, 'edit'])->name('artikel.edit');
+Route::put('/artikel/update/{id}', [ArtikelController::class, 'update'])->name('artikel.update');
+Route::get('/artikel/destroy/{id}', [ArtikelController::class, 'destroy'])->name('artikel.destroy');
