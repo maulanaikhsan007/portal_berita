@@ -6,7 +6,7 @@
 	<div class="page-inner py-5">
 		<div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
 			<div>
-				<h1 class="text-white pb-2 fw-bold">Artikel</h1>
+				<h1 class="text-white pb-2 fw-bold">Materi</h1>
 			</div>
 			<div class="ml-md-auto py-2 py-md-0">
 				{{-- <a href="#" class="btn btn-white btn-border btn-round mr-2">Manage</a>
@@ -21,8 +21,8 @@
 			<div class="card full-height">
 				<div class="card-header">
 					<div class="card-head-row">
-						<div class="card-title">Data Artikel</div>
-                        <a href="{{ route('artikel.create')}}" class="btn btn-primary btn-sm ml-auto"><i class="fas fa-plus"></i> Tambah</a>
+						<div class="card-title">Data Materi</div>
+                        <a href="{{ route('materi.create')}}" class="btn btn-primary btn-sm ml-auto"><i class="fas fa-plus"></i> Tambah</a>
 					</div>
 				</div>
 				<div class="card-body">
@@ -36,28 +36,34 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Artikel</th>
+                                    <th>Materi Video</th>
                                     <th>Slug</th>
-                                    <th>Kategori</th>
-                                    <th>Author</th>
+                                    <th>Playlist</th>
+                                    <th>Status</th>
                                     <th>Gambar</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($artikel as $data)
+                                @forelse ($materi as $data)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{$data->judul}}</td>
+                                    <td>{{$data->judul_materi}}</td>
                                     <td>{{$data->slug}}</td>
-                                    <td>{{$data->kategori->nama_kategori}}</td>
-                                    <td>{{$data->users->name}}</td>
+                                    <td>{{$data->playlist->judul_playlist}}</td>
                                     <td>
-                                        <img src="{{ asset('uploads/' . $data->gambar_artikel)}}" width="100">
+                                        @if($data->is_active == '1')
+                                            Active
+                                        @else
+                                            Draft
+                                        @endif
                                     </td>
                                     <td>
-                                        <a href="{{route('artikel.edit', $data->id)}}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
-                                        <a href="{{route('artikel.destroy', $data->id)}}" class="btn btn-danger" onclick="return confirm('Anda Yakin Ingin Menghapus ?')"><i class="fas fa-trash-alt"></i></a>
+                                        <img src="{{ asset('uploads/' . $data->gambar_materi)}}" width="100">
+                                    </td>
+                                    <td>
+                                        <a href="{{route('materi.edit', $data->id)}}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                        <a href="{{route('materi.destroy', $data->id)}}" class="btn btn-danger" onclick="return confirm('Anda Yakin Ingin Menghapus ?')"><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                                 @empty

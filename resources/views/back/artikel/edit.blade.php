@@ -26,19 +26,54 @@
 					</div>
 				</div>
 				<div class="card-body">
-                    <form method="post" action="{{route('artikel.update', $artikel->id)}}">
+                    <form method="post" action="{{route('artikel.update', $artikel->id)}}" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <div class="form-group">
-                            <label >Nama Artikel</label>
-                            <input type="text" class="form-control" name="nama_kategori" value="{{$artikel->nama_kategori}}" placeholder="Masukkan Nama Kategori">
+                            <label >Judul Artikel</label>
+                            <input type="text" name="judul" class="form-control" value="{{$artikel->judul}}">
                         </div>
 						<div class="form-group">
-                            <label >Nama Kategori</label>
-                            <input type="text" class="form-control" name="nama_kategori" value="{{$artikel->slug}}" placeholder="Masukkan Nama Kategori">
+                            <label >Body</label>
+                            <textarea name="body" class="form-control">{{$artikel->body}}</textarea>
+                        </div>
+						<div class="form-group">
+                            <label >Kategori</label>
+                            <select name="kategori_id" class="form-control">
+								<option value="">--Pilih--</option>
+								@foreach($kategori as $item)
+									@if($item->id == $artikel->kategori_id)
+										<option value="{{ $item->id}}" selected='selected'>{{ $item->nama_kategori}}</option>
+									@else
+									<option value="{{ $item->id }}">
+										{{ $item->nama_kategori}}
+									</option>
+									@endif
+								@endforeach
+							</select>
+                        </div>
+						<div class="form-group">
+                            <label >Status</label>
+                            <select name="is_active" class="form-control">
+								<option>--Pilih--</option>
+								<option value="1" {{ $artikel->is_active == '1' ? 'selected' : '' }}>
+									Publish
+								</option>
+								<option value="0" {{ $artikel->is_active == '0' ? 'selected' : '' }}>
+									Draft
+								</option>
+							</select>
+                        </div>
+						<div class="form-group">
+                            <label >Gambar Artikel</label>
+                            <input type="file" name="gambar_artikel" class="form-control">
+							<br>
+							<label>Gambar Saat Ini</label><br>
+							<img src="{{ asset('uploads/' . $artikel->gambar_artikel)}}" width="100">
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Ubah</button>
+							<button class="btn btn-danger"><i class="fas fa-times-circle"></i> Reset</button>
                         </div>
                     </form>
 				</div>

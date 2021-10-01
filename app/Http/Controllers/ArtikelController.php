@@ -6,6 +6,7 @@ use App\Models\Artikel;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ArtikelController extends Controller
@@ -74,8 +75,9 @@ class ArtikelController extends Controller
      */
     public function edit($id)
     {
+        $kategori = Kategori::all();
         $artikel = Artikel::find($id);
-        return view('back.artikel.edit', compact('artikel'));
+        return view('back.artikel.edit', compact('artikel', 'kategori'));
     }
 
     /**
@@ -85,9 +87,41 @@ class ArtikelController extends Controller
      * @param  \App\Models\Artikel  $artikel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Artikel $artikel)
+    public function update(Request $request, $id)
     {
-        //
+        // $this->validate($request,[
+        //     'judul' => 'required|min:4',
+        // ]);
+
+        if(empty($request->file('gambar_artikel'))){
+            $artikel = Artikel::find($id);
+            $artikel->update([
+                'judul' => $request->judul,
+                'body' => $request->body,
+                'slug' => Str::slug($request->judul),
+                'kategori_id' => $request->kategori_id,
+                'is_active' => $request->is_active,
+                'user_id' => Auth::id(),
+                'views' => 0
+            ]);
+            return redirect('/artikel')->with(['success' => 'Data Berhasil Diubah']);
+            
+        }else{
+            $artikel = Artikel::find($id);
+            Storage::delete($artikel->gambar_artikel);
+            $artikel->update([
+                'judul' => $request->judul,
+                'body' => $request->body,
+                'slug' => Str::slug($request->judul),
+                'kategori_id' => $request->kategori_id,
+                'is_active' => $request->is_active,
+                'user_id' => Auth::id(),
+                'views' => 0,
+                'gambar_artikel' => $request->file('gambar_artikel')->store('artikel'),
+                ]);
+
+                return redirect('/artikel')->with(['success' => 'Data Berhasil Diubah']);
+        }
     }
 
     /**
@@ -96,8 +130,12 @@ class ArtikelController extends Controller
      * @param  \App\Models\Artikel  $artikel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Artikel $artikel)
+    public function destroy($id)
     {
-        //
+        $artikel = Artikel::find($id);
+        Storage::delete($artikel->gambar_artikel);
+        $artikel->delete();
+
+        return redirect('/artikel')->with(['success' => 'Data Berhasil Dihapus']);
     }
 }

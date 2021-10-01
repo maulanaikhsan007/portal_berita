@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\MateriController;
+use App\Http\Controllers\PlaylistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,3 +40,19 @@ Route::post('/artikel', [ArtikelController::class, 'store'])->name('artikel.stor
 Route::get('/artikel/edit/{id}', [ArtikelController::class, 'edit'])->name('artikel.edit');
 Route::put('/artikel/update/{id}', [ArtikelController::class, 'update'])->name('artikel.update');
 Route::get('/artikel/destroy/{id}', [ArtikelController::class, 'destroy'])->name('artikel.destroy');
+
+//Playlist
+Route::get('/playlist', [PlaylistController::class, 'index']);
+Route::get('/playlist/create', [PlaylistController::class, 'create'])->name('playlist.create');
+Route::post('/playlist', [PlaylistController::class, 'store'])->name('playlist.store');
+Route::get('/playlist/edit/{id}', [PlaylistController::class, 'edit'])->name('playlist.edit');
+Route::put('/playlist/update/{id}', [PlaylistController::class, 'update'])->name('playlist.update');
+Route::get('/playlist/destroy/{id}', [PlaylistController::class, 'destroy'])->name('playlist.destroy');
+
+//Materi
+Route::get('/materi', [MateriController::class, 'index']);
+Route::get('/materi/create', [MateriController::class, 'create'])->name('materi.create');
+Route::post('/materi', [MateriController::class, 'store'])->name('materi.store');
+Route::get('/materi/edit/{id}', [MateriController::class, 'edit'])->name('materi.edit');
+Route::put('/materi/update/{id}', [MateriController::class, 'update'])->name('materi.update');
+Route::get('/materi/destroy/{id}', [MateriController::class, 'destroy'])->name('materi.destroy');

@@ -37,7 +37,7 @@
 						</div>
 					</div>
 					<ul class="nav nav-primary">
-						<li class="nav-item">
+						<li class="nav-item dropdown {{ Request::segment(1) === 'dashboard' ? 'active' : '' }}">
 							<a href="/dashboard">
 								<i class="fas fa-home"></i>
 								<p>Dashboard</p>
@@ -49,16 +49,28 @@
 							</span>
 							<h4 class="text-section">Components</h4>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item dropdown {{ Request::segment(1) === 'kategori' ? 'active' : '' }}">
 							<a href="/kategori">
 								<i class="fas fa-desktop"></i>
 								<p>Kategori</p>
 							</a>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item dropdown {{ Request::segment(1) === 'artikel' ? 'active' : '' }}">
 							<a href="/artikel">
 								<i class="fas fa-desktop"></i>
 								<p>Artikel</p>
+							</a>
+						</li>
+						<li class="nav-item dropdown {{ Request::segment(1) === 'playlist' ? 'active' : '' }}">
+							<a href="/playlist">
+								<i class="fas fa-desktop"></i>
+								<p>Playlist Video</p>
+							</a>
+						</li>
+						<li class="nav-item dropdown {{ Request::segment(1) === 'materi' ? 'active' : '' }}">
+							<a href="/materi">
+								<i class="fas fa-desktop"></i>
+								<p>Materi</p>
 							</a>
 						</li>
 						<li class="nav-item">
